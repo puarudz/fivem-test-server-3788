@@ -1,7 +1,6 @@
 cache/
 db/
 imgui.ini
-artifact/
 crashes/
 server-tls.*
 *.log
