@@ -1,0 +1,791 @@
+/* ─────────────────────────────────────────────
+   SAMAEL CITY — Loading Screen
+   Liquid Glass · Soft Glow · Easy on the Eyes
+───────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Softer, warmer accent — less harsh than pure red */
+    --accent: #e85d6f;
+    --accent-soft: rgba(232, 93, 111, 0.15);
+    --accent-border: rgba(232, 93, 111, 0.25);
+    --accent-glow: rgba(232, 93, 111, 0.35);
+
+    /* Neutral warm tones */
+    --bg: #0b0c10;
+    --text: #eaeaf0;
+    --text-sub: rgba(234, 234, 240, 0.55);
+    --text-muted: rgba(234, 234, 240, 0.3);
+
+    /* Glass tokens */
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shine: rgba(255, 255, 255, 0.12);
+    --glass-blur: 24px;
+    --glass-radius: 24px;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Background ── */
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+.bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) saturate(0.6) blur(2px);
+    transition: opacity 3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: bgZoom 30s ease-in-out infinite alternate;
+    position: absolute;
+    inset: 0;
+}
+
+@keyframes bgZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+.bg-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        /* Soft center spotlight */
+        radial-gradient(ellipse 60% 60% at 50% 45%, transparent 0%, rgba(11, 12, 16, 0.5) 60%, rgba(11, 12, 16, 0.95) 100%),
+        /* Bottom fade for loading bar area */
+        linear-gradient(180deg, transparent 0%, transparent 50%, rgba(11, 12, 16, 0.7) 75%, rgba(11, 12, 16, 0.95) 100%);
+}
+
+/* ── Ambient Glow Orbs ── */
+.ambient-orbs {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    animation: orbFloat 20s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    top: -10%;
+    right: -5%;
+    animation-duration: 25s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+    bottom: -15%;
+    left: -10%;
+    animation-duration: 30s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #14b8a6 0%, transparent 70%);
+    top: 50%;
+    left: 60%;
+    animation-duration: 22s;
+    animation-delay: -10s;
+    opacity: 0.08;
+}
+
+@keyframes orbFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(30px, -40px) scale(1.1);
+    }
+
+    66% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+
+    100% {
+        transform: translate(10px, -10px) scale(1.05);
+    }
+}
+
+/* ── Particles ── */
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+    }
+
+    10% {
+        opacity: 0.5;
+    }
+
+    90% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(40px);
+    }
+}
+
+/* ── Content ── */
+.content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+}
+
+/* ── Glass Card ── */
+.glass-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    width: 520px;
+    max-width: 92vw;
+    padding: 40px 36px 32px;
+
+    /* Liquid Glass Effect */
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-radius);
+    backdrop-filter: none; /* blur(var(--glass-blur)) -- REMOVED: causes black screen in FiveM CEF */
+    -webkit-backdrop-filter: none;
+
+    /* Inner light refraction */
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 0 rgba(255, 255, 255, 0.03),
+        0 20px 60px -10px rgba(0, 0, 0, 0.5),
+        0 0 0 0.5px rgba(255, 255, 255, 0.05);
+
+    animation: cardAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glass highlight reflection */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
+    border-radius: var(--glass-radius) var(--glass-radius) 0 0;
+    pointer-events: none;
+}
+
+/* Subtle animated edge glow */
+.glass-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--glass-radius);
+    background: linear-gradient(135deg, var(--accent-border), transparent 40%, transparent 60%, rgba(99, 102, 241, 0.15));
+    z-index: -1;
+    opacity: 0.6;
+    animation: edgeGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes edgeGlow {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* ── Logo Area ── */
+.logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-icon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+    animation: logoBreathe 4s ease-in-out infinite;
+}
+
+@keyframes logoBreathe {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 15px var(--accent-glow));
+        transform: scale(1);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 25px var(--accent-glow)) drop-shadow(0 0 50px rgba(232, 93, 111, 0.1));
+        transform: scale(1.02);
+    }
+}
+
+.logo-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.logo-text {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    user-select: none;
+}
+
+.logo-samael {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #f0a0aa 0%, var(--accent) 40%, #c44d5e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 10px rgba(232, 93, 111, 0.3));
+}
+
+.logo-city {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-shadow: 0 2px 15px rgba(255, 255, 255, 0.08);
+}
+
+.logo-tagline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* ── Glass Divider ── */
+.glass-divider {
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-shine), transparent);
+}
+
+/* ── Loading Area ── */
+.loading-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.loading-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loading-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-sub);
+    letter-spacing: 0.02em;
+}
+
+.loading-percent {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f0a0aa, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 55px;
+    text-align: right;
+    letter-spacing: -0.02em;
+}
+
+.loading-track {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.loading-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(232, 93, 111, 0.6), var(--accent), #f0a0aa);
+    background-size: 200% 100%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow:
+        0 0 16px rgba(232, 93, 111, 0.4),
+        0 0 4px rgba(232, 93, 111, 0.6);
+    animation: gradientFlow 3s ease infinite;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 100% 0;
+    }
+
+    50% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.loading-shine {
+    position: absolute;
+    top: 0;
+    left: -60px;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -60px;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(100% + 60px);
+        opacity: 0;
+    }
+}
+
+/* ── Tips Area ── */
+.tips-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 520px;
+    max-width: 92vw;
+    padding: 18px 24px 14px;
+
+    /* Lighter glass — more transparent */
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    /* backdrop-filter: blur(16px); -- REMOVED: causes black screen in FiveM CEF */
+
+    animation: cardAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tip-icon {
+    flex-shrink: 0;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.tip-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.tip-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.tip-text {
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--text-sub);
+    line-height: 1.6;
+    transition: opacity 0.4s ease;
+    min-height: 42px;
+}
+
+.tip-progress-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.tip-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #f0a0aa);
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+/* ── Bottom Bar ── */
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    z-index: 20;
+    animation: fadeInUp 1s ease 0.8s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.server-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+    animation: pulseDot 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        box-shadow: 0 0 4px rgba(52, 211, 153, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.6), 0 0 20px rgba(52, 211, 153, 0.2);
+    }
+}
+
+.bottom-right {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    display: flex;
+    gap: 6px;
+}
+
+.sep {
+    opacity: 0.3;
+}
+
+.version {
+    color: var(--text-sub);
+    font-weight: 600;
+}
+
+/* ── Mini Music Player ── */
+.music-player {
+    position: fixed;
+    bottom: 28px;
+    right: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px 8px 10px;
+    z-index: 60;
+
+    /* Liquid glass */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    /* backdrop-filter: blur(20px) saturate(1.2); -- REMOVED: causes black screen in FiveM CEF */
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+        0 8px 24px -6px rgba(0, 0, 0, 0.4);
+
+    animation: fadeInUp 1s ease 1s both;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.music-player:hover {
+    border-color: var(--accent-border);
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+        0 8px 24px -6px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(232, 93, 111, 0.08);
+}
+
+/* Toggle button */
+.music-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-sub);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.music-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.music-btn .music-icon-play {
+    opacity: 1;
+}
+
+.music-btn .music-icon-muted {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.music-btn:hover {
+    background: rgba(232, 93, 111, 0.1);
+    border-color: var(--accent-border);
+    color: var(--accent);
+}
+
+/* Muted state */
+.music-player.muted .music-btn .music-icon-play {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.music-player.muted .music-btn .music-icon-muted {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.music-player.muted .music-btn {
+    color: var(--text-muted);
+}
+
+/* Visualizer */
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 18px;
+    padding: 0 2px;
+}
+
+.viz-bar {
+    display: block;
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent), rgba(232, 93, 111, 0.4));
+    animation: vizBounce 0.8s ease-in-out infinite alternate;
+    transform-origin: bottom;
+}
+
+.viz-bar:nth-child(1) {
+    height: 40%;
+    animation-duration: 0.6s;
+    animation-delay: 0s;
+}
+
+.viz-bar:nth-child(2) {
+    height: 80%;
+    animation-duration: 0.5s;
+    animation-delay: 0.1s;
+}
+
+.viz-bar:nth-child(3) {
+    height: 55%;
+    animation-duration: 0.7s;
+    animation-delay: 0.05s;
+}
+
+.viz-bar:nth-child(4) {
+    height: 90%;
+    animation-duration: 0.55s;
+    animation-delay: 0.15s;
+}
+
+.viz-bar:nth-child(5) {
+    height: 45%;
+    animation-duration: 0.65s;
+    animation-delay: 0.08s;
+}
+
+@keyframes vizBounce {
+    0% {
+        transform: scaleY(0.3);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+/* Muted state — freeze bars */
+.music-player.muted .viz-bar {
+    animation-play-state: paused;
+    opacity: 0.25;
+    transform: scaleY(0.2);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Label */
+.music-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.music-player:hover .music-label {
+    color: var(--text-sub);
+}
+
+/* ── Subtle noise texture (very light) ── */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.015;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    pointer-events: none;
+    z-index: 50;
+}
