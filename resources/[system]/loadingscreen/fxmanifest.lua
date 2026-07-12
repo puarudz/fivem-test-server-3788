@@ -1,13 +1,13 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'Samael City Loading Screen V3 — Clean Cinematic'
+description 'Samael City Loading Screen V3 â€” Clean Cinematic'
 author 'PTP'
 version '3.0.0'
 
 loadscreen 'html/index.html'
 loadscreen_cursor 'yes'
-loadscreen_manual_shutdown 'yes'
+loadscreen_manual_shutdown 'no'
 
 files {
     'html/index.html',
