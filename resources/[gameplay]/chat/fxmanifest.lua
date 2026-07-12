@@ -15,8 +15,6 @@ files {
   'dist/ui.html',
   'dist/index.css',
   'dist/chat.js',
-  'html/vendor/*.css',
-  'html/vendor/fonts/*.woff2',
 }
 
 fx_version 'adamant'
