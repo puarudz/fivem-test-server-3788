@@ -1,36 +1,33 @@
-local defaultModel = 'mp_m_freemode_01'
-local spawnPos = vector4(456.09, 6565.5, 27.0, 257.35)
+local spawnPos = vector3(456.09, 6565.5, 27.0)
+local spawnHeading = 257.35
+local modelName = 'mp_m_freemode_01'
 local firstSpawn = true
 
--- Pre-load model
-local modelHash = GetHashKey(defaultModel)
-RequestModel(modelHash)
-while not HasModelLoaded(modelHash) do Wait(10) end
-
 AddEventHandler('playerSpawned', function()
-    -- Freeze to prevent running in place
-    local ped = PlayerPedId()
-    FreezeEntityPosition(ped, true)
+    DoScreenFadeOut(500)
 
     if firstSpawn then
         firstSpawn = false
-        if GetEntityModel(ped) ~= modelHash then
-            SetPlayerModel(PlayerId(), modelHash)
-            -- re-get ped after model change
-            ped = PlayerPedId()
-            SetPedDefaultComponentVariation(ped)
+        local model = GetHashKey(modelName)
+        RequestModel(model)
+        while not HasModelLoaded(model) do
+            RequestModel(model)
+            Wait(10)
         end
+        SetPlayerModel(PlayerId(), model)
+        SetPedDefaultComponentVariation(PlayerPedId())
+        SetModelAsNoLongerNeeded(model)
     end
 
-    -- Get ground Z and teleport
-    local found, groundZ = GetGroundZFor_3dCoord(spawnPos.x, spawnPos.y, 1000.0, false)
-    if not found then groundZ = spawnPos.z end
-    local finalZ = math.max(groundZ, spawnPos.z) + 0.5
+    -- Request collision at spawn point
+    RequestCollisionAtCoord(spawnPos.x, spawnPos.y, spawnPos.z)
+    local ped = PlayerPedId()
+    ClearPedTasksImmediately(ped)
+    SetEntityCoords(ped, spawnPos.x, spawnPos.y, spawnPos.z, false, false, false, false)
+    SetEntityHeading(ped, spawnHeading)
 
-    SetEntityCoords(ped, spawnPos.x, spawnPos.y, finalZ, false, false, false, false)
-    SetEntityHeading(ped, spawnPos.w)
+    while not HasCollisionLoadedAroundEntity(ped) do Wait(10) end
 
-    Wait(200)
-    FreezeEntityPosition(ped, false)
+    DoScreenFadeIn(1000)
     TriggerEvent('chat:addMessage', { args = { '^2[Spawn] ^7Chao mung den Samael City!' } })
 end)
