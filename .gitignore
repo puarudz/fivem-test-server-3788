@@ -11,3 +11,5 @@ package-lock.json
 
 .replxx_history
 coderun.bat
+
+server.cfg
