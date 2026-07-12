@@ -10,15 +10,15 @@ Server FiveM test chạy artifact Windows build **31689** với game build GTA V
 
 ## Cài đặt & Chạy
 
-`at
+```bat
 start.bat
-`
+```
 
-Server chạy tại localhost:30120, LAN only.
+Server chạy tại `localhost:30120`, LAN only.
 
 ## Cấu hình
 
-File server.cfg:
+File `server.cfg`:
 
 | Cài đặt | Giá trị |
 |---------|--------|
@@ -32,23 +32,23 @@ File server.cfg:
 
 | Resource | Mô tả |
 |----------|-------|
-| [carmod] | Xe độ: AB, Demon AG, EX150 |
-| carcommands | Lệnh: /car, /dv, /fix, /tpm |
-| chat | Chat NUI mặc định |
-| Menu | Menu client (v3.5.0) |
-| mapmanager | Quản lý map |
-| spawnmanager | Quản lý spawn |
-| sessionmanager | Quản lý session OneSync |
-| hardcap | Giới hạn player |
-| conlog | Log RCON |
-| asic-gamemode | Gamemode cơ bản (freeroam, PvP, xe) |
+| `[carmod]` | Xe độ: AB, Demon AG, EX150 |
+| `carcommands` | Lệnh: /car, /dv, /fix, /tpm |
+| `chat` | Chat NUI mặc định |
+| `vMenu` | Menu client (v3.5.0) |
+| `mapmanager` | Quản lý map |
+| `spawnmanager` | Quản lý spawn |
+| `sessionmanager` | Quản lý session OneSync |
+| `hardcap` | Giới hạn player |
+| `rconlog` | Log RCON |
+| `basic-gamemode` | Gamemode cơ bản (freeroam, PvP, xe) |
 
 ## Artifacts
 
-- **Windows**: build 31689 — rtifact/windows/FXServer.exe
-- **Linux**: build 31689 — rtifact/linux/run.sh
+- **Windows**: build `31689` — `artifact/windows/FXServer.exe`
+- **Linux**: build `31689` — `artifact/linux/run.sh`
 - Tự động cập nhật qua GitHub Actions mỗi 12h UTC
 
 ## GitHub Actions
 
-Workflow .github/workflows/update_artifacts.yml tự động tải artifact mới nhất từ FiveM API mỗi ngày.
+Workflow `.github/workflows/update_artifacts.yml` tự động tải artifact mới nhất từ FiveM API mỗi ngày.
