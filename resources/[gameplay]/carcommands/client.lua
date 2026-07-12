@@ -1,13 +1,13 @@
--- /car [model] - spawn xe
+-- /car [model] - Spawn vehicle
 RegisterCommand('car', function(source, args)
     local model = args[1]
     if not model or model == '' then
-        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7Dùng: /car [tên xe]' } })
+        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7Usage: /car [model]' } })
         return
     end
     local hash = GetHashKey(model)
     if not IsModelInCdimage(hash) or not IsModelAVehicle(hash) then
-        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7Không t?m th?y xe: ' .. model } })
+        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7KhÃ´ng t?m th?y xe: ' .. model } })
         return
     end
     RequestModel(hash)
@@ -21,19 +21,19 @@ RegisterCommand('car', function(source, args)
     SetPedIntoVehicle(ped, veh, -1)
     SetVehicleNumberPlateText(veh, 'CAR')
     SetModelAsNoLongerNeeded(hash)
-    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ğ? spawn: ' .. model } })
+    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ä? spawn: ' .. model } })
 end, false)
 
--- /dv - xóa xe ğang ng?i
+-- /dv - xÃ³a xe Ä‘ang ng?i
 RegisterCommand('dv', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped, false)
     if veh == 0 then
-        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7B?n không ? trong xe nào!' } })
+        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7B?n khÃ´ng ? trong xe nÃ o!' } })
         return
     end
     DeleteEntity(veh)
-    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ğ? xóa xe.' } })
+    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ä? xÃ³a xe.' } })
 end, false)
 
 -- /fix - s?a xe
@@ -41,20 +41,20 @@ RegisterCommand('fix', function()
     local ped = PlayerPedId()
     local veh = GetVehiclePedIsIn(ped, false)
     if veh == 0 then
-        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7B?n không ? trong xe nào!' } })
+        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7B?n khÃ´ng ? trong xe nÃ o!' } })
         return
     end
     SetVehicleFixed(veh)
     SetVehicleDeformationFixed(veh)
     SetVehicleEngineHealth(veh, 1000.0)
-    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ğ? s?a xe.' } })
+    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ä? s?a xe.' } })
 end, false)
 
--- /tpm - teleport t?i marker trên map
+-- /tpm - teleport t?i marker trÃªn map
 RegisterCommand('tpm', function()
     local waypoint = GetFirstBlipInfoId(8)
     if not DoesBlipExist(waypoint) then
-        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7Chıa ğ?t marker trên map!' } })
+        TriggerEvent('chat:addMessage', { args = { '^1[L?I] ^7ChÆ°a Ä‘?t marker trÃªn map!' } })
         return
     end
     local coords = GetBlipInfoIdCoord(waypoint)
@@ -67,12 +67,12 @@ RegisterCommand('tpm', function()
     else
         SetEntityCoords(ped, coords.x, coords.y, z + 1.0, false, false, false, false)
     end
-    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ğ? d?ch chuy?n t?i marker.' } })
+    TriggerEvent('chat:addMessage', { args = { '^2[OK] ^7Ä? d?ch chuy?n t?i marker.' } })
 end, false)
 
-TriggerEvent('chat:addSuggestion', '/car', 'Spawn xe', {
-    { name = 'tên xe', help = 'vd: adder, zentorno' }
+TriggerEvent('chat:addSuggestion', '/car', 'Spawn vehicle', {
+    { name = 'model', help = 'e.g. adder, zentorno' }
 })
-TriggerEvent('chat:addSuggestion', '/dv', 'Xóa xe ğang ng?i')
-TriggerEvent('chat:addSuggestion', '/fix', 'S?a xe ğang ng?i')
+TriggerEvent('chat:addSuggestion', '/dv', 'XÃ³a xe Ä‘ang ng?i')
+TriggerEvent('chat:addSuggestion', '/fix', 'S?a xe Ä‘ang ng?i')
 TriggerEvent('chat:addSuggestion', '/tpm', 'D?ch chuy?n t?i marker')

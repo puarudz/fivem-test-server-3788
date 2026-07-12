@@ -29,5 +29,5 @@ AddEventHandler('playerSpawned', function()
     while not HasCollisionLoadedAroundEntity(ped) do Wait(10) end
 
     DoScreenFadeIn(1000)
-    TriggerEvent('chat:addMessage', { args = { '^2[Spawn] ^7Chao mung den Samael City!' } })
+    TriggerEvent('chat:addMessage', { args = { '^2[Spawn] ^7Welcome to Samael City!' } })
 end)
