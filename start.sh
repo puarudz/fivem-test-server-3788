@@ -1,0 +1,1 @@
+artifact/linux/run.sh +exec server.cfg +set sv_enforceGameBuild 2699

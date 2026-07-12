@@ -1,0 +1,1 @@
+artifact\windows\FXServer.exe +exec server.cfg +set sv_enforceGameBuild 3788
