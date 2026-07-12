@@ -1,54 +1,61 @@
-# FiveM Test Server — Build 3788
+# FiveM Test Server — Build 3788 / Máy chủ FiveM Test — Build 3788
 
-Server FiveM test chạy artifact Windows build **31689** với game build GTA V **3788** (Patch 2026-1).
+**EN** | FiveM test server running Windows artifact build **31689** with GTA V game build **3788** (Patch 2026-1).  
+**VI** | Máy chủ FiveM test chạy artifact Windows build **31689** với game build GTA V **3788** (Patch 2026-1).
 
-## Yêu cầu
+---
+
+## Requirements / Yêu cầu
 
 - Windows 10/11 64-bit
-- GTA V bản quyền (build 3788) cài qua Rockstar Launcher / Steam / Epic
-- [FiveM Client](https://fivem.net) mới nhất
+- GTA V (build 3788) via Rockstar Launcher / Steam / Epic
+- [FiveM Client](https://fivem.net) latest / mới nhất
 
-## Cài đặt & Chạy
+## Install & Run / Cài đặt & Chạy
 
 ```bat
 start.bat
 ```
 
-Server chạy tại `localhost:30120`, LAN only.
+Server runs at / chạy tại `localhost:30120`, LAN only.
 
-## Cấu hình
+## Configuration / Cấu hình
 
-File `server.cfg`:
+File `server.cfg` (rename from `server.cfg.example`):
 
-| Cài đặt | Giá trị |
-|---------|--------|
+| Setting / Cài đặt | Value / Giá trị |
+|-------------------|-----------------|
 | Port | 30120 |
 | OneSync | On |
 | Max Clients | 8 |
 | Game Build | 3788 |
-| License Key | *đã ẩn, tự điền* |
+| License Key | *hidden, fill in / đã ẩn, tự điền* |
 
-## Resources
+## Resources / Tài nguyên
 
-| Resource | Mô tả |
-|----------|-------|
-| `[carmod]` | Xe độ: AB, Demon AG, EX150 |
-| `carcommands` | Lệnh: /car, /dv, /fix, /tpm |
-| `chat` | Chat NUI mặc định |
-| `vMenu` | Menu client (v3.5.0) |
-| `mapmanager` | Quản lý map |
-| `spawnmanager` | Quản lý spawn |
-| `sessionmanager` | Quản lý session OneSync |
-| `hardcap` | Giới hạn player |
-| `rconlog` | Log RCON |
-| `basic-gamemode` | Gamemode cơ bản (freeroam, PvP, xe) |
+| Resource | Description / Mô tả |
+|----------|---------------------|
+| `[carmod]` | Car mods / Xe độ: AB, Demon AG, EX150 |
+| `carcommands` | Chat commands / Lệnh: `/car`, `/dv`, `/fix`, `/tpm` |
+| `chat` | Chat NUI with Vietnamese support / Chat NUI hỗ trợ Tiếng Việt |
+| `vMenu` | Menu client **v3.8.22** (latest) |
+| `loadingscreen` | Samael City loading screen / Màn hình tải |
+| `mapmanager` | Map manager / Quản lý map |
+| `spawnmanager` | Spawn manager / Quản lý spawn |
+| `sessionmanager` | OneSync session manager |
+| `hardcap` | Player limit / Giới hạn người chơi |
+| `rconlog` | RCON logger |
+| `basic-gamemode` | Basic gamemode / Gamemode cơ bản (freeroam, PvP, vehicles) |
 
 ## Artifacts
 
 - **Windows**: build `31689` — `artifact/windows/FXServer.exe`
 - **Linux**: build `31689` — `artifact/linux/run.sh`
-- Tự động cập nhật qua GitHub Actions mỗi 12h UTC
+- Auto-updated via GitHub Actions every 12h / Tự động cập nhật qua GitHub Actions mỗi 12h
 
-## GitHub Actions
+## Notes / Ghi chú
 
-Workflow `.github/workflows/update_artifacts.yml` tự động tải artifact mới nhất từ FiveM API mỗi ngày.
+- `server.cfg` is gitignored to protect license key. Copy from `server.cfg.example` and fill in your key.
+- `server.cfg` đã được gitignore để bảo vệ key. Copy từ `server.cfg.example` và điền key của bạn.
+- Chat uses Google Fonts Noto Sans for full Vietnamese Unicode support.
+- Chat sử dụng Google Fonts Noto Sans để hỗ trợ đầy đủ Tiếng Việt có dấu.

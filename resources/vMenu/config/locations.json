@@ -1,3 +1,16 @@
 {
-	"teleports": []
+  "teleports": [
+    {
+      "name": "1",
+      "coordinates": {
+        "X": 456.088,
+        "Y": 6565.5,
+        "Z": 26.9998722,
+        "IsNormalized": false,
+        "IsZero": false
+      },
+      "heading": 257.3531
+    }
+  ],
+  "blips": null
 }

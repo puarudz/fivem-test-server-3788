@@ -12,6 +12,7 @@ ensure hardcap
 ensure rconlog
 ensure vMenu
 ensure carcommands
+ensure spawn-default
 ensure loadingscreen
 ensure [carmod]
 exec resources/vMenu/config/permissions.cfg
